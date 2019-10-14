@@ -1,0 +1,17 @@
+upload/*.torrent
+
+dist/
+
+res/
+
+.vscode/
+
+app
+
+a-viwer
+
+*.db
+*.log
+
+main
+etcd/etcd-*
