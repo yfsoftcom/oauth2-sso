@@ -18,11 +18,12 @@ var (
 	key   = []byte("super-secret-key")
 	store = sessions.NewCookieStore(key)
 
+	// it's port .
 	PORT = "9004"
 
-	CLIENT_ID = "demoapp2"
+	ClientID = "demoapp2"
 
-	CLIENT_SECRET = "secret"
+	ClientSecret = "secret"
 )
 
 func PrintFormData(r *http.Request) {
@@ -60,7 +61,7 @@ func PostForm(url string, data url.Values) (map[string]interface{}, error) {
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
 
 	http.Redirect(w, r, fmt.Sprintf(`%s/oauth/authorize?client_id=%s&response_type=code&redirect_uri=%s&scope=read_userinfo&state=%s`,
-		"http://localhost:9002", CLIENT_ID, "http://localhost:"+PORT+"/login/callback", "1"), http.StatusFound)
+		"http://localhost:9002", ClientID, "http://localhost:"+PORT+"/login/callback", "1"), http.StatusFound)
 }
 
 func LoginCallbackHandler(w http.ResponseWriter, r *http.Request) {
@@ -73,8 +74,8 @@ func LoginCallbackHandler(w http.ResponseWriter, r *http.Request) {
 	// 通过 code 取数据
 	token, err := PostForm("http://localhost:9002/oauth/token", url.Values{
 		"code":          {code},
-		"client_id":     {CLIENT_ID},
-		"client_secret": {CLIENT_SECRET},
+		"client_id":     {ClientID},
+		"client_secret": {ClientSecret},
 		"redirect_uri":  {"http://localhost:" + PORT + "/login/callback"},
 		"grant_type":    {"authorization_code"},
 		"scope":         {"read_userinfo"},
